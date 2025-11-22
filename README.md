@@ -116,6 +116,7 @@ Expected response:
 }
 ```
 
+
 ## 📖 API Documentation
 
 ### Base URL
@@ -350,59 +351,24 @@ Authorization: Bearer <token>
 
 ---
 
-## 🔧 Development
+## ☁️ Cloud Deployment (AWS)
 
-### Local Development Without Docker
+This application is ready for AWS deployment:
 
-1. **Create Virtual Environment**
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
+**Architecture:**
+- **Compute**: AWS ECS (Fargate) or EC2
+- **Database**: Amazon RDS (PostgreSQL)
+- **Container Registry**: Amazon ECR
+- **Load Balancer**: Application Load Balancer (ALB)
 
-2. **Install Dependencies**
-```bash
-pip install -r requirements.txt
-```
+**Quick Deploy Steps:**
+1. Push Docker image to ECR
+2. Create RDS PostgreSQL instance
+3. Update `DATABASE_URL` environment variable
+4. Deploy container to ECS/Fargate
+5. Configure ALB for HTTPS traffic
 
-3. **Set Up PostgreSQL**
-```bash
-# Install PostgreSQL locally or use a cloud instance
-createdb taskdb
-```
-
-4. **Configure Environment**
-```bash
-cp .env.example .env
-# Edit .env with your local database URL
-```
-
-5. **Run Migrations**
-```bash
-alembic upgrade head
-```
-
-6. **Start Application**
-```bash
-python run.py
-```
-
-### Database Migrations
-
-#### Create New Migration
-```bash
-alembic revision --autogenerate -m "Description of changes"
-```
-
-#### Apply Migrations
-```bash
-alembic upgrade head
-```
-
-#### Rollback Migration
-```bash
-alembic downgrade -1
-```
+*(Full AWS deployment guide coming soon)*
 
 ## 🧪 Testing
 
@@ -457,20 +423,6 @@ curl -X GET "http://localhost:5000/api/tasks?status=pending" \
 ✅ Proper foreign key constraints
 ✅ Cascade deletes for data integrity
 
-### Recommended for Production
-- [ ] Add comprehensive unit and integration tests
-- [ ] Implement rate limiting (Flask-Limiter)
-- [ ] Add request logging and monitoring
-- [ ] Use environment-specific configs (dev, staging, prod)
-- [ ] Set up CI/CD pipeline
-- [ ] Configure HTTPS/SSL
-- [ ] Add API versioning
-- [ ] Implement caching (Redis)
-- [ ] Add email verification
-- [ ] Set up database backups
-- [ ] Use secrets management (AWS Secrets Manager, Vault)
-- [ ] Add API documentation (Swagger/OpenAPI)
-
 ## 🐳 Docker Commands
 
 ```bash
@@ -506,29 +458,15 @@ docker-compose exec db psql -U taskuser -d taskdb
 
 ⚠️ **Important**: Change all secret keys in production!
 
-## 🤝 Contributing
+## 🎯 Project Purpose
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+Built as part of my portfolio to demonstrate backend engineering skills including:
+- **Database Design**: Normalized PostgreSQL schema with proper indexing and relationships
+- **RESTful APIs**: Clean endpoint design following industry standards
+- **Production Readiness**: Connection pooling, migrations, error handling, and security
+- **Containerization**: Docker-based deployment for consistency across environments
+- **Scalability**: Pagination, filtering, and query optimization for large datasets
 
-## 📄 License
+This project showcases my ability to build production-grade microservices ready for cloud deployment.
 
-This project is open source and available under the MIT License.
 
-## 👤 Author
-
-Built for demonstrating backend development skills for Amazon interviews.
-
-## 🙏 Acknowledgments
-
-- Flask documentation
-- SQLAlchemy best practices
-- Docker containerization patterns
-- RESTful API design principles
-
----
-
-**Happy Coding! 🚀**
